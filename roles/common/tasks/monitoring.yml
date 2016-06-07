@@ -210,6 +210,7 @@
 - name: bad memory alert
   sensu_check: name=bad-memory plugin=check-mcelog.sh use_sudo=true
                auto_resolve=false interval=20 occurrences=1
+               args='--criticality'
   when: common.system_tools.mcelog|bool and ansible_architecture != "ppc64le"
   notify: restart sensu-client
 
