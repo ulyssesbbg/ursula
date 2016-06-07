@@ -207,6 +207,11 @@
 - name: log scanning caching dir
   file: path=/var/cache/check-log owner=sensu state=directory
 
+- name: bad memory alert
+  sensu_check: name=bad-memory plugin=check-mcelog.sh use_sudo=true
+               auto_resolve=false interval=20 occurrences=1
+  notify: restart sensu-client
+
 - name: raid check
   sensu_check: name=check-raid plugin=check-raid.sh interval=300 occurrences=1
                args="-z {{ common.monitoring.sensu_checks.check_raid.criticality }}"

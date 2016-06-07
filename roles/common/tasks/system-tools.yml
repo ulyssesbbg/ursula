@@ -49,6 +49,10 @@
   apt: pkg=mcelog
   when: common.system_tools.mcelog|bool and ansible_architecture != "ppc64le"
 
+- name: mcelog service enabled
+  service: name=mcelog state=started enabled=true
+  when: common.system_tools.mcelog|bool and ansible_architecture != "ppc64le"
+
 # http://www.supermicro.com/support/faqs/faq.cfm?faq=14537
 - name: blacklist mei
   lineinfile: dest=/etc/modprobe.d/blacklist.conf
